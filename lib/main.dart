@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:in_app_review/in_app_review.dart';
 import 'package:phimhayokup/providers/theme_provider.dart';
 import 'package:phimhayokup/router.dart';
+import 'package:phimhayokup/screens/splash_screen.dart';
 import 'package:phimhayokup/utils/app_theme.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -28,9 +29,10 @@ class PhimHayApp extends ConsumerStatefulWidget {
 }
 
 class _PhimHayAppState extends ConsumerState<PhimHayApp> {
-  @override
-  void initState() {
-    super.initState();
+  bool _splashDone = false;
+
+  void _onSplashDone() {
+    setState(() => _splashDone = true);
     if (widget.shouldRequestReview) {
       WidgetsBinding.instance.addPostFrameCallback((_) async {
         final review = InAppReview.instance;
@@ -43,6 +45,13 @@ class _PhimHayAppState extends ConsumerState<PhimHayApp> {
 
   @override
   Widget build(BuildContext context) {
+    if (!_splashDone) {
+      return MaterialApp(
+        debugShowCheckedModeBanner: false,
+        home: SplashScreen(onDone: _onSplashDone),
+      );
+    }
+
     final themeMode = ref.watch(themeModeProvider);
 
     return MaterialApp.router(

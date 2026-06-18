@@ -100,26 +100,14 @@ class HomeScreen extends ConsumerWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,
         children: [
-          RichText(
-            text: TextSpan(
-              children: [
-                TextSpan(
-                  text: 'Phim',
-                  style: TextStyle(
-                    color: context.cl.textPrimary,
-                    fontSize: 24,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                const TextSpan(
-                  text: 'Hay',
-                  style: TextStyle(
-                    color: AppColors.primary,
-                    fontSize: 24,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ],
+          const Text(
+            'phimhay',
+            style: TextStyle(
+              color: AppColors.primary,
+              fontSize: 26,
+              fontWeight: FontWeight.w900,
+              letterSpacing: -1,
+              height: 1.0,
             ),
           ),
           Text(
