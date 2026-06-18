@@ -1,0 +1,32 @@
+const Map<int, String> genreMap = {
+  28: 'Hành Động',
+  12: 'Phiêu Lưu',
+  16: 'Hoạt Hình',
+  35: 'Hài',
+  80: 'Tội Phạm',
+  99: 'Tài Liệu',
+  18: 'Chính Kịch',
+  10751: 'Gia Đình',
+  14: 'Kỳ Ảo',
+  36: 'Lịch Sử',
+  27: 'Kinh Dị',
+  10402: 'Âm Nhạc',
+  9648: 'Bí Ẩn',
+  10749: 'Tình Cảm',
+  878: 'Khoa Học Viễn Tưởng',
+  10770: 'Phim Truyền Hình',
+  53: 'Hồi Hộp',
+  10752: 'Chiến Tranh',
+  37: 'Miền Tây',
+};
+
+const List<Map<String, dynamic>> featuredGenres = [
+  {'id': 28, 'name': 'Hành Động', 'icon': '⚔️'},
+  {'id': 35, 'name': 'Hài', 'icon': '😂'},
+  {'id': 27, 'name': 'Kinh Dị', 'icon': '👻'},
+  {'id': 10749, 'name': 'Tình Cảm', 'icon': '❤️'},
+  {'id': 878, 'name': 'Viễn Tưởng', 'icon': '🚀'},
+  {'id': 18, 'name': 'Chính Kịch', 'icon': '🎭'},
+  {'id': 80, 'name': 'Tội Phạm', 'icon': '🔫'},
+  {'id': 14, 'name': 'Kỳ Ảo', 'icon': '🧙'},
+];
