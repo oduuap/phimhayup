@@ -1,0 +1,479 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Chính sách quyền riêng tư của ứng dụng phimhayup.">
+  <title>phimhayup - Chính Sách Quyền Riêng Tư</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --bg: #f6f7fb;
+      --card: #ffffff;
+      --text: #151821;
+      --muted: #667085;
+      --line: #e5e7ef;
+      --primary: #e50914;
+      --primary-dark: #b80610;
+      --soft: #fff0f1;
+      --shadow: 0 18px 60px rgba(20, 24, 33, 0.10);
+      --radius: 18px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.65;
+    }
+
+    a {
+      color: var(--primary-dark);
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    .page {
+      width: min(100%, 1020px);
+      margin: 0 auto;
+      padding: 28px 18px 48px;
+    }
+
+    .hero {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 34px;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 18px;
+      font-weight: 700;
+      color: var(--primary);
+    }
+
+    .brand-mark {
+      width: 34px;
+      height: 34px;
+      border-radius: 10px;
+      background: var(--primary);
+      color: #fff;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(30px, 5vw, 48px);
+      line-height: 1.12;
+      letter-spacing: 0;
+    }
+
+    .lead {
+      max-width: 760px;
+      margin: 16px 0 0;
+      color: var(--muted);
+      font-size: 17px;
+    }
+
+    .meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 22px;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      min-height: 34px;
+      padding: 6px 12px;
+      border-radius: 999px;
+      background: var(--soft);
+      color: var(--primary-dark);
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .layout {
+      display: grid;
+      grid-template-columns: 260px 1fr;
+      gap: 22px;
+      margin-top: 22px;
+      align-items: start;
+    }
+
+    .toc,
+    .content {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+    }
+
+    .toc {
+      position: sticky;
+      top: 18px;
+      padding: 18px;
+    }
+
+    .toc-title {
+      margin: 0 0 10px;
+      font-size: 13px;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0;
+      font-weight: 800;
+    }
+
+    .toc a {
+      display: block;
+      padding: 8px 0;
+      border-top: 1px solid var(--line);
+      color: var(--text);
+      font-size: 14px;
+    }
+
+    .content {
+      padding: 30px;
+    }
+
+    section {
+      padding: 4px 0 28px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    section:last-child {
+      border-bottom: 0;
+      padding-bottom: 0;
+    }
+
+    h2 {
+      margin: 0 0 12px;
+      font-size: 22px;
+      line-height: 1.3;
+      letter-spacing: 0;
+    }
+
+    p {
+      margin: 0 0 14px;
+    }
+
+    ul {
+      margin: 0 0 14px;
+      padding-left: 22px;
+    }
+
+    li {
+      margin: 7px 0;
+    }
+
+    .note {
+      margin-top: 14px;
+      padding: 14px 16px;
+      border-left: 4px solid var(--primary);
+      background: var(--soft);
+      border-radius: 12px;
+      color: #3f1b1d;
+    }
+
+    .contact-card {
+      display: grid;
+      gap: 10px;
+      padding: 16px;
+      background: #fafbff;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+    }
+
+    .copy-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .button {
+      border: 0;
+      border-radius: 10px;
+      background: var(--primary);
+      color: #fff;
+      cursor: pointer;
+      font-weight: 700;
+      padding: 10px 14px;
+    }
+
+    .button:hover {
+      background: var(--primary-dark);
+    }
+
+    .footer {
+      margin-top: 22px;
+      color: var(--muted);
+      font-size: 13px;
+      text-align: center;
+    }
+
+    .back-top {
+      position: fixed;
+      right: 18px;
+      bottom: 18px;
+      width: 44px;
+      height: 44px;
+      border: 0;
+      border-radius: 50%;
+      background: var(--primary);
+      color: #fff;
+      cursor: pointer;
+      box-shadow: 0 12px 28px rgba(229, 9, 20, 0.25);
+      display: none;
+      font-size: 18px;
+      font-weight: 800;
+    }
+
+    .back-top.is-visible {
+      display: block;
+    }
+
+    @media (max-width: 760px) {
+      .page {
+        padding: 14px 12px 40px;
+      }
+
+      .hero,
+      .content {
+        padding: 22px;
+      }
+
+      .layout {
+        grid-template-columns: 1fr;
+      }
+
+      .toc {
+        position: static;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="page" id="top">
+    <header class="hero">
+      <div class="brand">
+        <span class="brand-mark">P</span>
+        <span>phimhayup</span>
+      </div>
+      <h1>Chính Sách Quyền Riêng Tư</h1>
+      <p class="lead">
+        Chính sách này giải thích cách phimhayup xử lý dữ liệu khi bạn sử dụng ứng dụng để tra cứu thông tin phim, xem trailer và tìm nền tảng xem hợp pháp.
+      </p>
+      <div class="meta">
+        <span class="pill">Cập nhật lần cuối: 27/06/2026</span>
+        <span class="pill">Phiên bản ứng dụng: 1.0.0</span>
+        <span class="pill">Ngôn ngữ: Tiếng Việt</span>
+      </div>
+    </header>
+
+    <div class="layout">
+      <nav class="toc" aria-label="Mục lục">
+        <p class="toc-title">Mục lục</p>
+        <a href="#intro">Giới thiệu</a>
+        <a href="#local-data">Dữ liệu lưu cục bộ</a>
+        <a href="#network-data">Dữ liệu gửi ra ngoài</a>
+        <a href="#third-party">Dịch vụ bên thứ ba</a>
+        <a href="#permissions">Quyền truy cập</a>
+        <a href="#children">Trẻ em</a>
+        <a href="#security">Bảo mật</a>
+        <a href="#deletion">Xóa dữ liệu</a>
+        <a href="#changes">Thay đổi chính sách</a>
+        <a href="#contact">Liên hệ</a>
+      </nav>
+
+      <article class="content">
+        <section id="intro">
+          <h2>1. Giới thiệu</h2>
+          <p>
+            phimhayup là ứng dụng khám phá phim, tra cứu thông tin phim, xem trailer, lưu danh sách yêu thích cục bộ và mở trang tìm kiếm trên các nền tảng xem phim hợp pháp.
+          </p>
+          <p>
+            phimhayup không phải là dịch vụ phát trực tuyến. Ứng dụng không lưu trữ, không tải xuống, không phát và không phân phối nội dung phim có bản quyền.
+          </p>
+        </section>
+
+        <section id="local-data">
+          <h2>2. Dữ liệu lưu cục bộ trên thiết bị</h2>
+          <p>
+            phimhayup không yêu cầu đăng nhập và không thu thập tên, email cá nhân, số điện thoại, vị trí, danh bạ, ảnh, camera, microphone hoặc dữ liệu nhạy cảm của bạn.
+          </p>
+          <p>Ứng dụng có thể lưu cục bộ trên thiết bị các dữ liệu phục vụ tính năng:</p>
+          <ul>
+            <li>Danh sách phim yêu thích, còn gọi là Watchlist.</li>
+            <li>Lịch sử tìm kiếm gần đây.</li>
+            <li>Tùy chọn giao diện, ví dụ chế độ sáng hoặc tối.</li>
+            <li>Số lần mở ứng dụng để hiển thị hộp thoại đánh giá phù hợp.</li>
+          </ul>
+          <p>
+            Các dữ liệu này nằm trên thiết bị của bạn và không được phimhayup bán cho bên thứ ba.
+          </p>
+        </section>
+
+        <section id="network-data">
+          <h2>3. Dữ liệu gửi ra ngoài thiết bị</h2>
+          <p>
+            Khi bạn dùng tính năng tra cứu phim, phimhayup gửi truy vấn tìm kiếm, mã phim, mã thể loại hoặc trang dữ liệu cần tải tới máy chủ proxy của phimhayup để gọi TMDB.
+          </p>
+          <p>
+            Các yêu cầu này chỉ dùng để trả về thông tin phim, poster, backdrop, diễn viên, trailer, điểm đánh giá và nội dung liên quan. phimhayup không dùng dữ liệu này để quảng cáo cá nhân hóa.
+          </p>
+          <div class="note">
+            Các kết nối mạng của ứng dụng sử dụng HTTPS để bảo vệ dữ liệu khi truyền tải.
+          </div>
+        </section>
+
+        <section id="third-party">
+          <h2>4. Dịch vụ bên thứ ba</h2>
+          <p>phimhayup sử dụng hoặc mở các dịch vụ bên thứ ba sau:</p>
+          <ul>
+            <li>
+              <strong>TMDB (The Movie Database):</strong> cung cấp thông tin phim, hình ảnh, diễn viên và điểm đánh giá.
+              <a href="https://www.themoviedb.org/privacy-policy" target="_blank" rel="noopener">Xem chính sách TMDB</a>.
+            </li>
+            <li>
+              <strong>YouTube/Google:</strong> phát trailer thông qua YouTube Player.
+              <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">Xem chính sách Google</a>.
+            </li>
+            <li>
+              <strong>Nền tảng xem phim hợp pháp:</strong> Netflix, FPT Play, Galaxy Play, Max và ClipTV. phimhayup chỉ mở trang tìm kiếm bên ngoài ứng dụng khi bạn chọn nền tảng.
+            </li>
+          </ul>
+          <p>
+            Khi bạn mở trailer hoặc nền tảng bên ngoài, dịch vụ đó có thể xử lý dữ liệu theo chính sách riêng của họ. phimhayup không kiểm soát nội dung, tài khoản, khu vực hỗ trợ hoặc điều khoản của các dịch vụ bên thứ ba.
+          </p>
+          <div class="note">
+            This product uses the TMDB API but is not endorsed or certified by TMDB.
+          </div>
+        </section>
+
+        <section id="permissions">
+          <h2>5. Quyền truy cập thiết bị</h2>
+          <p>phimhayup chỉ yêu cầu các quyền cần thiết cho chức năng cơ bản:</p>
+          <ul>
+            <li><strong>Internet:</strong> dùng để tải dữ liệu phim, hình ảnh và trailer.</li>
+            <li><strong>Trạng thái mạng:</strong> dùng để nhận biết kết nối và hiển thị trạng thái offline nếu cần.</li>
+          </ul>
+          <p>
+            Ứng dụng không yêu cầu quyền camera, microphone, danh bạ, vị trí chính xác, SMS, lịch hoặc tệp cá nhân.
+          </p>
+        </section>
+
+        <section id="children">
+          <h2>6. Trẻ em</h2>
+          <p>
+            phimhayup không hướng đến trẻ em dưới 13 tuổi và không cố ý thu thập thông tin cá nhân từ trẻ em. Nội dung phim, poster hoặc trailer từ bên thứ ba có thể phù hợp hơn với người dùng tuổi teen trở lên tùy khu vực.
+          </p>
+        </section>
+
+        <section id="security">
+          <h2>7. Bảo mật</h2>
+          <p>
+            phimhayup dùng HTTPS cho các kết nối mạng. Dữ liệu cục bộ như Watchlist, lịch sử tìm kiếm và tùy chọn giao diện được lưu trên thiết bị của bạn.
+          </p>
+          <p>
+            Không có phương thức truyền tải hoặc lưu trữ điện tử nào an toàn tuyệt đối, nhưng phimhayup chỉ xử lý lượng dữ liệu tối thiểu cần thiết cho chức năng của ứng dụng.
+          </p>
+        </section>
+
+        <section id="deletion">
+          <h2>8. Xóa dữ liệu</h2>
+          <p>Bạn có thể xóa dữ liệu cục bộ của phimhayup bằng các cách sau:</p>
+          <ul>
+            <li>Xóa lịch sử tìm kiếm trong ứng dụng nếu tính năng này khả dụng.</li>
+            <li>Xóa Watchlist trong ứng dụng nếu tính năng này khả dụng.</li>
+            <li>Xóa dữ liệu ứng dụng hoặc gỡ cài đặt ứng dụng từ cài đặt hệ điều hành.</li>
+          </ul>
+        </section>
+
+        <section id="changes">
+          <h2>9. Thay đổi chính sách</h2>
+          <p>
+            Chính sách này có thể được cập nhật khi phimhayup thay đổi tính năng, dịch vụ bên thứ ba hoặc yêu cầu pháp lý. Ngày cập nhật mới nhất sẽ được hiển thị ở đầu trang.
+          </p>
+        </section>
+
+        <section id="contact">
+          <h2>10. Liên hệ</h2>
+          <div class="contact-card">
+            <p>
+              Nếu bạn có câu hỏi về Chính Sách Quyền Riêng Tư này, vui lòng liên hệ:
+            </p>
+            <div class="copy-row">
+              <strong id="supportEmail">support@phimhayup.app</strong>
+              <button class="button" type="button" id="copyEmail">Sao chép email</button>
+            </div>
+            <p id="copyStatus" aria-live="polite"></p>
+          </div>
+        </section>
+      </article>
+    </div>
+
+    <p class="footer">
+      © <span id="year"></span> phimhayup. Trang này chỉ mô tả chính sách quyền riêng tư của ứng dụng phimhayup.
+    </p>
+  </main>
+
+  <button class="back-top" type="button" id="backTop" aria-label="Lên đầu trang">↑</button>
+
+  <script>
+    (function () {
+      var year = document.getElementById('year');
+      var backTop = document.getElementById('backTop');
+      var copyEmail = document.getElementById('copyEmail');
+      var supportEmail = document.getElementById('supportEmail');
+      var copyStatus = document.getElementById('copyStatus');
+
+      year.textContent = new Date().getFullYear();
+
+      window.addEventListener('scroll', function () {
+        if (window.scrollY > 360) {
+          backTop.classList.add('is-visible');
+        } else {
+          backTop.classList.remove('is-visible');
+        }
+      });
+
+      backTop.addEventListener('click', function () {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+
+      copyEmail.addEventListener('click', function () {
+        var email = supportEmail.textContent.trim();
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(email).then(function () {
+            copyStatus.textContent = 'Đã sao chép email hỗ trợ.';
+          }).catch(function () {
+            copyStatus.textContent = email;
+          });
+        } else {
+          copyStatus.textContent = email;
+        }
+      });
+    })();
+  </script>
+</body>
+</html>
