@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:phimhayokup/config/app_config.dart';
 import 'package:phimhayokup/utils/app_colors.dart';
 
 class PrivacyPolicyScreen extends StatelessWidget {
@@ -12,8 +13,10 @@ class PrivacyPolicyScreen extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: context.cl.background,
         leading: IconButton(
-          icon: Icon(Icons.arrow_back_ios_rounded,
-              color: context.cl.textPrimary),
+          icon: Icon(
+            Icons.arrow_back_ios_rounded,
+            color: context.cl.textPrimary,
+          ),
           onPressed: () => context.pop(),
         ),
         title: const Text('Chính Sách Quyền Riêng Tư'),
@@ -34,53 +37,56 @@ class _PolicyContent extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        _buildLastUpdated(context, '01/06/2025'),
+        _buildLastUpdated(context, '25/06/2026'),
         const SizedBox(height: 20),
         _buildIntro(context),
         const SizedBox(height: 24),
         _buildSection(
           context,
-          '1. Thông Tin Chúng Tôi Thu Thập',
-          'PhimHay không thu thập, lưu trữ hoặc chia sẻ bất kỳ thông tin cá nhân nào của bạn trên máy chủ của chúng tôi.\n\n'
-              'Dữ liệu duy nhất được lưu cục bộ trên thiết bị của bạn là:\n'
-              '• Danh sách phim yêu thích (Watchlist) — lưu trong bộ nhớ thiết bị, không đồng bộ lên server\n\n'
-              'Dữ liệu này không bao giờ rời khỏi thiết bị của bạn và bạn có thể xóa bất kỳ lúc nào.',
+          '1. Dữ Liệu PhimHay Lưu Trữ',
+          'PhimHay không yêu cầu đăng nhập và không thu thập tên, email, số điện thoại, vị trí, danh bạ, ảnh, camera hoặc dữ liệu nhạy cảm của bạn.\n\n'
+              'Ứng dụng chỉ lưu cục bộ trên thiết bị các dữ liệu phục vụ tính năng:\n'
+              '- Danh sách phim yêu thích (Watchlist)\n'
+              '- Lịch sử tìm kiếm gần đây\n'
+              '- Số lần mở ứng dụng để hiển thị hộp thoại đánh giá phù hợp\n\n'
+              'Các dữ liệu này nằm trong bộ nhớ thiết bị của bạn và có thể được xóa bằng cách xóa dữ liệu ứng dụng hoặc gỡ cài đặt ứng dụng.',
         ),
         _buildSection(
           context,
-          '2. Dịch Vụ Bên Thứ Ba',
-          'Ứng dụng sử dụng các dịch vụ bên thứ ba sau:\n\n'
-              '• TMDB (The Movie Database) — cung cấp thông tin phim, hình ảnh, trailer. Chính sách bảo mật tại: https://www.themoviedb.org/privacy-policy\n\n'
-              '• YouTube — phát trailer thông qua YouTube Player. Chính sách bảo mật Google tại: https://policies.google.com/privacy\n\n'
-              'Khi bạn xem trailer, YouTube có thể thu thập dữ liệu theo chính sách của họ.',
+          '2. Dữ Liệu Được Gửi Ra Ngoài Thiết Bị',
+          'Khi bạn sử dụng các tính năng tra cứu phim, PhimHay gửi truy vấn tìm kiếm, mã phim, thể loại hoặc trang dữ liệu cần tải tới máy chủ proxy của PhimHay để gọi TMDB. Các yêu cầu này dùng để trả về thông tin phim, hình ảnh, diễn viên, trailer và đánh giá.\n\n'
+              'PhimHay không bán dữ liệu người dùng và không dùng dữ liệu này để quảng cáo cá nhân hóa.',
         ),
         _buildSection(
           context,
-          '3. Quyền Truy Cập Thiết Bị',
-          'PhimHay yêu cầu các quyền sau:\n\n'
-              '• Truy cập Internet — để tải dữ liệu phim từ TMDB và phát trailer từ YouTube\n\n'
-              'Ứng dụng không yêu cầu quyền truy cập camera, danh bạ, vị trí, hay bất kỳ dữ liệu cá nhân nào khác.',
+          '3. Dịch Vụ Bên Thứ Ba',
+          'PhimHay sử dụng các dịch vụ bên thứ ba sau:\n\n'
+              '- TMDB (The Movie Database): cung cấp thông tin phim, hình ảnh, diễn viên và đánh giá. Chính sách bảo mật: https://www.themoviedb.org/privacy-policy\n'
+              '- YouTube/Google: phát trailer thông qua YouTube Player. Chính sách bảo mật: https://policies.google.com/privacy\n'
+              '- Các nền tảng xem phim hợp pháp như Netflix, FPT Play, Galaxy Play, Max và ClipTV: PhimHay chỉ mở trang tìm kiếm bên ngoài ứng dụng khi bạn chọn nền tảng.\n\n'
+              'Khi bạn mở trailer hoặc nền tảng bên ngoài, dịch vụ đó có thể xử lý dữ liệu theo chính sách riêng của họ.',
         ),
         _buildSection(
           context,
-          '4. Trẻ Em',
-          'Ứng dụng này không hướng đến đối tượng trẻ em dưới 13 tuổi và chúng tôi không cố ý thu thập thông tin từ trẻ em. Nếu bạn phát hiện trẻ em đã cung cấp thông tin, vui lòng liên hệ với chúng tôi để xóa.',
+          '4. Quyền Truy Cập Thiết Bị',
+          'PhimHay chỉ yêu cầu quyền truy cập Internet và trạng thái mạng để tải dữ liệu phim, hình ảnh và trailer. Ứng dụng không yêu cầu quyền camera, microphone, danh bạ, vị trí hoặc tệp cá nhân.',
         ),
         _buildSection(
           context,
-          '5. Bảo Mật',
-          'Vì PhimHay không thu thập hay truyền dữ liệu cá nhân lên server, rủi ro bảo mật được giảm thiểu tối đa. Danh sách yêu thích được lưu cục bộ và được bảo vệ bởi hệ thống bảo mật của thiết bị.',
+          '5. Trẻ Em',
+          'Ứng dụng không hướng đến trẻ em dưới 13 tuổi. PhimHay không cố ý thu thập thông tin cá nhân từ trẻ em.',
         ),
         _buildSection(
           context,
-          '6. Thay Đổi Chính Sách',
-          'Chúng tôi có thể cập nhật Chính sách Quyền Riêng Tư này theo thời gian. Khi có thay đổi, chúng tôi sẽ cập nhật ngày "Cập nhật lần cuối" ở đầu trang này. Việc tiếp tục sử dụng ứng dụng sau khi có thay đổi đồng nghĩa với việc bạn chấp nhận chính sách mới.',
+          '6. Bảo Mật',
+          'Các kết nối mạng của ứng dụng sử dụng HTTPS. Dữ liệu cục bộ như Watchlist và lịch sử tìm kiếm được lưu trên thiết bị của bạn.',
         ),
         _buildSection(
           context,
           '7. Liên Hệ',
           'Nếu bạn có câu hỏi về Chính sách Quyền Riêng Tư này, vui lòng liên hệ:\n\n'
-              'Email: support@phimhay.app',
+              'Email: ${AppConfig.supportEmail}\n'
+              'Privacy URL: ${AppConfig.privacyPolicyUrl}',
         ),
         const SizedBox(height: 32),
         _buildFooter(context),
@@ -111,8 +117,7 @@ class _PolicyContent extends StatelessWidget {
 
   Widget _buildIntro(BuildContext context) {
     return Text(
-      'PhimHay ("chúng tôi") cam kết bảo vệ quyền riêng tư của bạn. '
-      'Chính sách này giải thích cách chúng tôi xử lý thông tin khi bạn sử dụng ứng dụng PhimHay trên Android và iOS.',
+      'PhimHay là ứng dụng tra cứu thông tin phim, xem trailer và tìm nền tảng xem hợp pháp. Chính sách này giải thích cách ứng dụng xử lý dữ liệu khi bạn sử dụng PhimHay.',
       style: TextStyle(
         color: context.cl.textSecondary,
         fontSize: 14,
@@ -152,7 +157,7 @@ class _PolicyContent extends StatelessWidget {
   Widget _buildFooter(BuildContext context) {
     return Center(
       child: Text(
-        'This app uses TMDB and the TMDB APIs but is not\nendorsed or certified by TMDB.',
+        AppConfig.tmdbAttribution,
         textAlign: TextAlign.center,
         style: TextStyle(color: context.cl.textMuted, fontSize: 11),
       ),

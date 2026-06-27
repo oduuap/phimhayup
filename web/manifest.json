@@ -1,11 +1,11 @@
 {
-    "name": "phimhayokup",
-    "short_name": "phimhayokup",
+    "name": "PhimHay",
+    "short_name": "PhimHay",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",
     "theme_color": "#0175C2",
-    "description": "A new Flutter project.",
+    "description": "Tra cứu thông tin phim, trailer và tìm nền tảng xem hợp pháp.",
     "orientation": "portrait-primary",
     "prefer_related_applications": false,
     "icons": [

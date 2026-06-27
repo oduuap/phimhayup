@@ -19,7 +19,8 @@ class PersonScreen extends ConsumerWidget {
       backgroundColor: context.cl.background,
       body: personAsync.when(
         loading: () => const Center(
-            child: CircularProgressIndicator(color: AppColors.primary)),
+          child: CircularProgressIndicator(color: AppColors.primary),
+        ),
         error: (e, _) => Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -32,10 +33,10 @@ class PersonScreen extends ConsumerWidget {
               ),
               const SizedBox(height: 16),
               ElevatedButton(
-                onPressed: () =>
-                    ref.invalidate(personDetailProvider(personId)),
+                onPressed: () => ref.invalidate(personDetailProvider(personId)),
                 style: ElevatedButton.styleFrom(
-                    backgroundColor: AppColors.primary),
+                  backgroundColor: AppColors.primary,
+                ),
                 child: const Text('Thử lại'),
               ),
             ],
@@ -87,8 +88,11 @@ class PersonScreen extends ConsumerWidget {
             color: context.cl.overlay,
             borderRadius: BorderRadius.circular(20),
           ),
-          child: const Icon(Icons.arrow_back_ios_new_rounded,
-              color: Colors.white, size: 18),
+          child: const Icon(
+            Icons.arrow_back_ios_new_rounded,
+            color: Colors.white,
+            size: 18,
+          ),
         ),
       ),
       flexibleSpace: FlexibleSpaceBar(
@@ -105,8 +109,11 @@ class PersonScreen extends ConsumerWidget {
               Container(
                 color: context.cl.surface,
                 child: Center(
-                  child: Icon(Icons.person_outline,
-                      size: 100, color: context.cl.textMuted),
+                  child: Icon(
+                    Icons.person_outline,
+                    size: 100,
+                    color: context.cl.textMuted,
+                  ),
                 ),
               ),
             Container(
@@ -141,27 +148,31 @@ class PersonScreen extends ConsumerWidget {
           person.name,
           style: TextStyle(
             color: context.cl.textPrimary,
-            fontSize: 24,
-            fontWeight: FontWeight.bold,
+            fontSize: 26,
+            fontWeight: FontWeight.w800,
+            height: 1.15,
           ),
         ),
         const SizedBox(height: 6),
-        Text(dept,
-            style:
-                const TextStyle(color: AppColors.primary, fontSize: 13)),
+        Text(
+          dept,
+          style: const TextStyle(color: AppColors.primary, fontSize: 13),
+        ),
         const SizedBox(height: 12),
         Wrap(
           spacing: 8,
           runSpacing: 8,
           children: [
             if (person.birthday != null)
-              _infoChip(context, Icons.cake_outlined,
-                  _formatDate(person.birthday!)),
+              _infoChip(
+                context,
+                Icons.cake_outlined,
+                _formatDate(person.birthday!),
+              ),
             if (person.ageText.isNotEmpty)
               _infoChip(context, Icons.person_outline, person.ageText),
             if (person.placeOfBirth != null)
-              _infoChip(
-                  context, Icons.place_outlined, person.placeOfBirth!),
+              _infoChip(context, Icons.place_outlined, person.placeOfBirth!),
           ],
         ),
       ],
@@ -181,9 +192,10 @@ class PersonScreen extends ConsumerWidget {
           Icon(icon, size: 14, color: context.cl.textMuted),
           const SizedBox(width: 6),
           Flexible(
-            child: Text(text,
-                style: TextStyle(
-                    color: context.cl.textSecondary, fontSize: 12)),
+            child: Text(
+              text,
+              style: TextStyle(color: context.cl.textSecondary, fontSize: 12),
+            ),
           ),
         ],
       ),
@@ -203,14 +215,7 @@ class PersonScreen extends ConsumerWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          'Tiểu Sử',
-          style: TextStyle(
-            color: context.cl.textPrimary,
-            fontSize: 17,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
+        _sectionTitle(context, 'Tiểu sử'),
         const SizedBox(height: 8),
         Text(
           person.biography,
@@ -228,14 +233,7 @@ class PersonScreen extends ConsumerWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          'Phim Tham Gia',
-          style: TextStyle(
-            color: context.cl.textPrimary,
-            fontSize: 17,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
+        _sectionTitle(context, 'Phim nổi bật'),
         const SizedBox(height: 12),
         SizedBox(
           height: 220,
@@ -249,7 +247,8 @@ class PersonScreen extends ConsumerWidget {
                 child: Container(
                   width: 120,
                   margin: EdgeInsets.only(
-                      right: index < person.movies.length - 1 ? 12 : 0),
+                    right: index < person.movies.length - 1 ? 12 : 0,
+                  ),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -273,13 +272,39 @@ class PersonScreen extends ConsumerWidget {
                         maxLines: 2,
                         overflow: TextOverflow.ellipsis,
                         style: TextStyle(
-                            color: context.cl.textSecondary, fontSize: 11),
+                          color: context.cl.textSecondary,
+                          fontSize: 11,
+                        ),
                       ),
                     ],
                   ),
                 ),
               );
             },
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _sectionTitle(BuildContext context, String title) {
+    return Row(
+      children: [
+        Container(
+          width: 3,
+          height: 18,
+          decoration: BoxDecoration(
+            color: AppColors.primary,
+            borderRadius: BorderRadius.circular(2),
+          ),
+        ),
+        const SizedBox(width: 9),
+        Text(
+          title,
+          style: TextStyle(
+            color: context.cl.textPrimary,
+            fontSize: 18,
+            fontWeight: FontWeight.w800,
           ),
         ),
       ],

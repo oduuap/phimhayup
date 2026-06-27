@@ -12,7 +12,7 @@ class MainShell extends StatelessWidget {
     final location = GoRouterState.of(context).uri.toString();
     if (location.startsWith('/search')) return 1;
     if (location.startsWith('/explore')) return 2;
-    if (location.startsWith('/top-rated')) return 3;
+    if (location.startsWith('/trailers')) return 3;
     if (location.startsWith('/watchlist')) return 4;
     return 0;
   }
@@ -38,11 +38,21 @@ class MainShell extends StatelessWidget {
           currentIndex: index,
           onTap: (i) {
             switch (i) {
-              case 0: context.go('/'); break;
-              case 1: context.go('/search'); break;
-              case 2: context.go('/explore'); break;
-              case 3: context.go('/top-rated'); break;
-              case 4: context.go('/watchlist'); break;
+              case 0:
+                context.go('/');
+                break;
+              case 1:
+                context.go('/search');
+                break;
+              case 2:
+                context.go('/explore');
+                break;
+              case 3:
+                context.go('/trailers');
+                break;
+              case 4:
+                context.go('/watchlist');
+                break;
             }
           },
           items: const [
@@ -62,9 +72,9 @@ class MainShell extends StatelessWidget {
               label: 'Khám Phá',
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.star_outline_rounded),
-              activeIcon: Icon(Icons.star_rounded),
-              label: 'Top Phim',
+              icon: Icon(Icons.smart_display_outlined),
+              activeIcon: Icon(Icons.smart_display_rounded),
+              label: 'Trailer',
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.bookmark_border_rounded),

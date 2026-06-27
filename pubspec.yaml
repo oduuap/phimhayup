@@ -1,5 +1,5 @@
 name: phimhayokup
-description: "Ứng dụng xem phim - wrapper app"
+description: "Tra cứu thông tin phim, trailer và tìm nền tảng xem hợp pháp."
 publish_to: 'none'
 version: 1.0.0+1
 
@@ -46,5 +46,5 @@ flutter_launcher_icons:
 flutter:
   uses-material-design: true
   assets:
-    - assets/images/
+#    - assets/images/
     - assets/icon/

@@ -10,9 +10,12 @@ import 'package:phimhayokup/screens/search_screen.dart';
 import 'package:phimhayokup/screens/settings_screen.dart';
 import 'package:phimhayokup/screens/terms_screen.dart';
 import 'package:phimhayokup/screens/top_rated_screen.dart';
+import 'package:phimhayokup/screens/trailer_center_screen.dart';
 import 'package:phimhayokup/screens/trailer_screen.dart';
 import 'package:phimhayokup/screens/watch_screen.dart';
 import 'package:phimhayokup/screens/watchlist_screen.dart';
+
+final rootNavigatorKey = GlobalKey<NavigatorState>();
 
 CustomTransitionPage<void> _buildSlidePage(Widget child, GoRouterState state) {
   return CustomTransitionPage<void>(
@@ -31,6 +34,7 @@ CustomTransitionPage<void> _buildSlidePage(Widget child, GoRouterState state) {
 }
 
 final router = GoRouter(
+  navigatorKey: rootNavigatorKey,
   initialLocation: '/',
   routes: [
     ShellRoute(
@@ -57,6 +61,11 @@ final router = GoRouter(
               const NoTransitionPage(child: TopRatedScreen()),
         ),
         GoRoute(
+          path: '/trailers',
+          pageBuilder: (context, state) =>
+              const NoTransitionPage(child: TrailerCenterScreen()),
+        ),
+        GoRoute(
           path: '/watchlist',
           pageBuilder: (context, state) =>
               const NoTransitionPage(child: WatchlistScreen()),
@@ -75,7 +84,10 @@ final router = GoRouter(
       pageBuilder: (context, state) {
         final id = int.parse(state.pathParameters['id']!);
         final title = state.uri.queryParameters['title'] ?? '';
-        return _buildSlidePage(WatchScreen(movieId: id, movieTitle: title), state);
+        return _buildSlidePage(
+          WatchScreen(movieId: id, movieTitle: title),
+          state,
+        );
       },
     ),
     GoRoute(

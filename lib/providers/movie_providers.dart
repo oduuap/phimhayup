@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:phimhayokup/models/movie.dart';
 import 'package:phimhayokup/models/movie_detail.dart';
@@ -27,13 +28,14 @@ final upcomingProvider = FutureProvider<List<Movie>>((ref) {
   return ref.watch(tmdbServiceProvider).getUpcoming();
 });
 
-final movieDetailProvider =
-    FutureProvider.family<MovieDetail, int>((ref, id) {
+final movieDetailProvider = FutureProvider.family<MovieDetail, int>((ref, id) {
   return ref.watch(tmdbServiceProvider).getMovieDetail(id);
 });
 
-final personDetailProvider =
-    FutureProvider.family<PersonDetail, int>((ref, id) {
+final personDetailProvider = FutureProvider.family<PersonDetail, int>((
+  ref,
+  id,
+) {
   return ref.watch(tmdbServiceProvider).getPersonDetail(id);
 });
 
@@ -46,6 +48,79 @@ final searchResultsProvider = FutureProvider<List<Movie>>((ref) {
 });
 
 final selectedGenreProvider = StateProvider<int?>((ref) => null);
+
+class MoodPreset {
+  final String id;
+  final String title;
+  final String subtitle;
+  final IconData icon;
+  final int genreId;
+  final String sortBy;
+  final double? minVote;
+
+  const MoodPreset({
+    required this.id,
+    required this.title,
+    required this.subtitle,
+    required this.icon,
+    required this.genreId,
+    required this.sortBy,
+    this.minVote,
+  });
+}
+
+final moodPresets = <MoodPreset>[
+  const MoodPreset(
+    id: 'tonight',
+    title: 'Tối nay xem gì',
+    subtitle: 'Dễ xem, nhiều người thích',
+    icon: Icons.nightlight_round,
+    genreId: 35,
+    sortBy: 'popularity.desc',
+    minVote: 6.5,
+  ),
+  const MoodPreset(
+    id: 'mind',
+    title: 'Căng não',
+    subtitle: 'Bí ẩn và hồi hộp',
+    icon: Icons.psychology_alt_outlined,
+    genreId: 9648,
+    sortBy: 'vote_average.desc',
+    minVote: 6.8,
+  ),
+  const MoodPreset(
+    id: 'fast',
+    title: 'Hành động nhanh',
+    subtitle: 'Nhịp mạnh, ít dài dòng',
+    icon: Icons.bolt_rounded,
+    genreId: 28,
+    sortBy: 'popularity.desc',
+    minVote: 6.2,
+  ),
+  const MoodPreset(
+    id: 'family',
+    title: 'Xem cùng nhà',
+    subtitle: 'Gia đình và hoạt hình',
+    icon: Icons.groups_2_outlined,
+    genreId: 10751,
+    sortBy: 'popularity.desc',
+    minVote: 6.0,
+  ),
+];
+
+final selectedMoodProvider = StateProvider<MoodPreset?>((ref) => null);
+
+final moodMoviesProvider = FutureProvider<List<Movie>>((ref) {
+  final mood = ref.watch(selectedMoodProvider);
+  if (mood == null) return Future.value([]);
+  return ref
+      .watch(tmdbServiceProvider)
+      .discoverMovies(
+        genreId: mood.genreId,
+        sortBy: mood.sortBy,
+        minVote: mood.minVote,
+      );
+});
 
 final genreMoviesProvider = FutureProvider<List<Movie>>((ref) {
   final genreId = ref.watch(selectedGenreProvider);
@@ -94,5 +169,5 @@ class SearchHistoryNotifier extends StateNotifier<List<String>> {
 
 final searchHistoryProvider =
     StateNotifierProvider<SearchHistoryNotifier, List<String>>(
-  (ref) => SearchHistoryNotifier(),
-);
+      (ref) => SearchHistoryNotifier(),
+    );

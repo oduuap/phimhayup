@@ -1,9 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:phimhayokup/config/app_config.dart';
 import 'package:phimhayokup/utils/app_colors.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class SettingsScreen extends StatelessWidget {
   const SettingsScreen({super.key});
+
+  Future<void> _openUrl(BuildContext context, String url) async {
+    final uri = Uri.parse(url);
+    final launched =
+        await launchUrl(uri, mode: LaunchMode.externalApplication) ||
+        await launchUrl(uri, mode: LaunchMode.platformDefault);
+
+    if (!launched && context.mounted) {
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(const SnackBar(content: Text('Không thể mở liên kết')));
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -12,8 +27,10 @@ class SettingsScreen extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: context.cl.background,
         leading: IconButton(
-          icon: Icon(Icons.arrow_back_ios_rounded,
-              color: context.cl.textPrimary),
+          icon: Icon(
+            Icons.arrow_back_ios_rounded,
+            color: context.cl.textPrimary,
+          ),
           onPressed: () => context.pop(),
         ),
         title: const Text('Cài Đặt & Thông Tin'),
@@ -28,14 +45,45 @@ class SettingsScreen extends StatelessWidget {
               _buildInfoTile(
                 context,
                 icon: Icons.movie_filter_rounded,
-                title: 'PhimHay',
-                subtitle: 'Phiên bản 1.0.0',
+                title: AppConfig.appName,
+                subtitle:
+                    'Phiên bản ${AppConfig.appVersion} - tra cứu phim, trailer và nền tảng xem hợp pháp.',
               ),
               _buildInfoTile(
                 context,
+                icon: Icons.info_outline_rounded,
+                title: 'Không phát trực tuyến',
+                subtitle:
+                    'PhimHay không lưu trữ, phát hoặc phân phối nội dung phim có bản quyền.',
+              ),
+            ],
+          ),
+          _buildSection(
+            context,
+            title: 'Nguồn Dữ Liệu & Credits',
+            children: [
+              _buildInfoTile(
+                context,
                 icon: Icons.data_object_rounded,
-                title: 'Dữ liệu phim',
-                subtitle: 'Cung cấp bởi TMDB (The Movie Database)',
+                title: 'TMDB',
+                subtitle:
+                    'Thông tin phim, diễn viên, hình ảnh và đánh giá được cung cấp bởi TMDB.',
+              ),
+              _buildInfoTile(
+                context,
+                icon: Icons.verified_outlined,
+                title: 'TMDB Attribution',
+                subtitle: AppConfig.tmdbAttribution,
+              ),
+              _buildNavTile(
+                context,
+                icon: Icons.open_in_new_rounded,
+                title: 'Chính sách TMDB',
+                subtitle: 'Mở trang The Movie Database',
+                onTap: () => _openUrl(
+                  context,
+                  'https://www.themoviedb.org/privacy-policy',
+                ),
               ),
             ],
           ),
@@ -47,24 +95,33 @@ class SettingsScreen extends StatelessWidget {
                 context,
                 icon: Icons.privacy_tip_outlined,
                 title: 'Chính Sách Quyền Riêng Tư',
-                subtitle: 'Cách chúng tôi xử lý dữ liệu của bạn',
-                route: '/privacy-policy',
+                subtitle: 'Cách PhimHay xử lý dữ liệu và dịch vụ bên thứ ba',
+                onTap: () => context.push('/privacy-policy'),
               ),
               _buildNavTile(
                 context,
                 icon: Icons.gavel_rounded,
                 title: 'Điều Khoản Sử Dụng',
                 subtitle: 'Quy định khi sử dụng ứng dụng',
-                route: '/terms',
+                onTap: () => context.push('/terms'),
+              ),
+              _buildInfoTile(
+                context,
+                icon: Icons.mail_outline_rounded,
+                title: 'Liên hệ hỗ trợ',
+                subtitle: AppConfig.supportEmail,
               ),
             ],
           ),
           const SizedBox(height: 32),
           Center(
-            child: Text(
-              'Dữ liệu phim được cung cấp bởi TMDB.\nỨng dụng không lưu trữ hay phát trực tuyến nội dung phim.',
-              textAlign: TextAlign.center,
-              style: TextStyle(color: context.cl.textMuted, fontSize: 12),
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 24),
+              child: Text(
+                'PhimHay là ứng dụng khám phá phim. Ứng dụng chỉ mở tìm kiếm trên các nền tảng hợp pháp và không cung cấp dịch vụ streaming.',
+                textAlign: TextAlign.center,
+                style: TextStyle(color: context.cl.textMuted, fontSize: 12),
+              ),
             ),
           ),
           const SizedBox(height: 24),
@@ -73,8 +130,11 @@ class SettingsScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildSection(BuildContext context,
-      {required String title, required List<Widget> children}) {
+  Widget _buildSection(
+    BuildContext context, {
+    required String title,
+    required List<Widget> children,
+  }) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -126,15 +186,19 @@ class SettingsScreen extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(title,
-                    style: TextStyle(
-                        color: context.cl.textPrimary,
-                        fontSize: 14,
-                        fontWeight: FontWeight.w500)),
+                Text(
+                  title,
+                  style: TextStyle(
+                    color: context.cl.textPrimary,
+                    fontSize: 14,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
                 const SizedBox(height: 2),
-                Text(subtitle,
-                    style:
-                        TextStyle(color: context.cl.textMuted, fontSize: 12)),
+                Text(
+                  subtitle,
+                  style: TextStyle(color: context.cl.textMuted, fontSize: 12),
+                ),
               ],
             ),
           ),
@@ -148,10 +212,10 @@ class SettingsScreen extends StatelessWidget {
     required IconData icon,
     required String title,
     required String subtitle,
-    required String route,
+    required VoidCallback onTap,
   }) {
     return InkWell(
-      onTap: () => context.push(route),
+      onTap: onTap,
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
         child: Row(
@@ -170,20 +234,27 @@ class SettingsScreen extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(title,
-                      style: TextStyle(
-                          color: context.cl.textPrimary,
-                          fontSize: 14,
-                          fontWeight: FontWeight.w500)),
+                  Text(
+                    title,
+                    style: TextStyle(
+                      color: context.cl.textPrimary,
+                      fontSize: 14,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
                   const SizedBox(height: 2),
-                  Text(subtitle,
-                      style: TextStyle(
-                          color: context.cl.textMuted, fontSize: 12)),
+                  Text(
+                    subtitle,
+                    style: TextStyle(color: context.cl.textMuted, fontSize: 12),
+                  ),
                 ],
               ),
             ),
-            Icon(Icons.chevron_right_rounded,
-                color: context.cl.textMuted, size: 20),
+            Icon(
+              Icons.chevron_right_rounded,
+              color: context.cl.textMuted,
+              size: 20,
+            ),
           ],
         ),
       ),

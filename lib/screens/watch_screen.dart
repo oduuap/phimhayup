@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:phimhayokup/providers/user_features_provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:phimhayokup/utils/app_colors.dart';
 
@@ -33,19 +35,13 @@ final _platforms = [
     name: 'Galaxy Play',
     logo: 'G',
     color: Color(0xFF6C3CE1),
-    searchUrl: 'https://galaxyplay.vn/tim-kiem?q=',
+    searchUrl: 'https://galaxyplay.vn/search?q=',
   ),
   const StreamingPlatform(
     name: 'HBO Max',
     logo: 'H',
     color: Color(0xFF0D29D0),
     searchUrl: 'https://play.max.com/search?q=',
-  ),
-  const StreamingPlatform(
-    name: 'Disney+',
-    logo: 'D+',
-    color: Color(0xFF0063E5),
-    searchUrl: 'https://www.disneyplus.com/search?q=',
   ),
   const StreamingPlatform(
     name: 'ClipTV',
@@ -55,7 +51,7 @@ final _platforms = [
   ),
 ];
 
-class WatchScreen extends StatelessWidget {
+class WatchScreen extends ConsumerWidget {
   final int movieId;
   final String movieTitle;
 
@@ -66,20 +62,30 @@ class WatchScreen extends StatelessWidget {
   });
 
   Future<void> _openPlatform(StreamingPlatform platform) async {
-    final url =
-        Uri.parse('${platform.searchUrl}${Uri.encodeComponent(movieTitle)}');
+    final url = Uri.parse(
+      '${platform.searchUrl}${Uri.encodeComponent(movieTitle)}',
+    );
     if (await canLaunchUrl(url)) {
       await launchUrl(url, mode: LaunchMode.externalApplication);
     }
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final preferred = ref.watch(preferredPlatformsProvider);
+    final platforms = [..._platforms]
+      ..sort((a, b) {
+        final aFav = preferred.contains(a.name);
+        final bFav = preferred.contains(b.name);
+        if (aFav == bFav) return 0;
+        return aFav ? -1 : 1;
+      });
+
     return Scaffold(
       backgroundColor: context.cl.background,
       appBar: AppBar(
         backgroundColor: context.cl.background,
-        title: const Text('Xem Phim'),
+        title: const Text('Tìm nơi xem'),
         leading: IconButton(
           icon: const Icon(Icons.arrow_back_ios_new_rounded),
           onPressed: () => Navigator.of(context).pop(),
@@ -92,7 +98,7 @@ class WatchScreen extends StatelessWidget {
           children: [
             _buildHeader(context),
             const SizedBox(height: 28),
-            _buildPlatformGrid(context),
+            _buildPlatformGrid(context, ref, platforms, preferred),
             const SizedBox(height: 28),
             _buildNote(context),
           ],
@@ -106,7 +112,7 @@ class WatchScreen extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          'Chọn nền tảng để xem',
+          'Chọn nền tảng hợp pháp',
           style: TextStyle(
             color: context.cl.textPrimary,
             fontSize: 22,
@@ -126,7 +132,12 @@ class WatchScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildPlatformGrid(BuildContext context) {
+  Widget _buildPlatformGrid(
+    BuildContext context,
+    WidgetRef ref,
+    List<StreamingPlatform> platforms,
+    List<String> preferred,
+  ) {
     return GridView.builder(
       shrinkWrap: true,
       physics: const NeverScrollableScrollPhysics(),
@@ -136,10 +147,14 @@ class WatchScreen extends StatelessWidget {
         mainAxisSpacing: 14,
         childAspectRatio: 2.4,
       ),
-      itemCount: _platforms.length,
+      itemCount: platforms.length,
       itemBuilder: (context, index) => _PlatformCard(
-        platform: _platforms[index],
-        onTap: () => _openPlatform(_platforms[index]),
+        platform: platforms[index],
+        preferred: preferred.contains(platforms[index].name),
+        onTap: () => _openPlatform(platforms[index]),
+        onTogglePreferred: () => ref
+            .read(preferredPlatformsProvider.notifier)
+            .toggle(platforms[index].name),
       ),
     );
   }
@@ -154,12 +169,15 @@ class WatchScreen extends StatelessWidget {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Icon(Icons.info_outline_rounded,
-              color: context.cl.textMuted, size: 18),
+          Icon(
+            Icons.info_outline_rounded,
+            color: context.cl.textMuted,
+            size: 18,
+          ),
           const SizedBox(width: 10),
           Expanded(
             child: Text(
-              'Nhấn vào nền tảng để tìm kiếm phim. Bạn cần tài khoản đăng ký trên từng nền tảng để xem nội dung.',
+              'PhimHay không phát trực tuyến hoặc lưu trữ phim. Các nút bên trên chỉ mở trang tìm kiếm của từng nền tảng; bạn cần tài khoản hợp lệ trên dịch vụ đó để xem nội dung.',
               style: TextStyle(
                 color: context.cl.textSecondary,
                 fontSize: 12,
@@ -175,9 +193,16 @@ class WatchScreen extends StatelessWidget {
 
 class _PlatformCard extends StatelessWidget {
   final StreamingPlatform platform;
+  final bool preferred;
   final VoidCallback onTap;
+  final VoidCallback onTogglePreferred;
 
-  const _PlatformCard({required this.platform, required this.onTap});
+  const _PlatformCard({
+    required this.platform,
+    required this.preferred,
+    required this.onTap,
+    required this.onTogglePreferred,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -214,13 +239,28 @@ class _PlatformCard extends StatelessWidget {
               ),
             ),
             const SizedBox(width: 10),
-            Text(
-              platform.name,
-              style: TextStyle(
-                color: platform.color,
-                fontSize: 14,
-                fontWeight: FontWeight.bold,
+            Expanded(
+              child: Text(
+                platform.name,
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+                style: TextStyle(
+                  color: platform.color,
+                  fontSize: 14,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
+            ),
+            IconButton(
+              onPressed: onTogglePreferred,
+              icon: Icon(
+                preferred ? Icons.push_pin_rounded : Icons.push_pin_outlined,
+                color: platform.color,
+                size: 17,
+              ),
+              constraints: const BoxConstraints.tightFor(width: 34, height: 34),
+              padding: EdgeInsets.zero,
+              tooltip: preferred ? 'Bỏ ghim' : 'Ghim nền tảng',
             ),
           ],
         ),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:phimhayokup/config/app_config.dart';
 import 'package:phimhayokup/utils/app_colors.dart';
 
 class TermsScreen extends StatelessWidget {
@@ -12,8 +13,10 @@ class TermsScreen extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: context.cl.background,
         leading: IconButton(
-          icon: Icon(Icons.arrow_back_ios_rounded,
-              color: context.cl.textPrimary),
+          icon: Icon(
+            Icons.arrow_back_ios_rounded,
+            color: context.cl.textPrimary,
+          ),
           onPressed: () => context.pop(),
         ),
         title: const Text('Điều Khoản Sử Dụng'),
@@ -34,70 +37,48 @@ class _TermsContent extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        _buildLastUpdated(context, '01/06/2025'),
+        _buildLastUpdated(context, '25/06/2026'),
         const SizedBox(height: 20),
         _buildIntro(context),
         const SizedBox(height: 24),
         _buildSection(
           context,
-          '1. Chấp Nhận Điều Khoản',
-          'Bằng cách tải xuống, cài đặt hoặc sử dụng ứng dụng PhimHay, bạn đồng ý tuân theo các Điều khoản Sử dụng này. Nếu bạn không đồng ý, vui lòng không sử dụng ứng dụng.',
+          '1. Mô Tả Dịch Vụ',
+          'PhimHay cung cấp các tính năng khám phá phim, bao gồm thông tin phim, diễn viên, đánh giá, trailer YouTube, Watchlist cục bộ, tìm kiếm và gợi ý nền tảng xem hợp pháp.\n\n'
+              'PhimHay không lưu trữ, phát trực tuyến, tải xuống, phân phối hoặc bán quyền truy cập vào nội dung phim có bản quyền.',
         ),
         _buildSection(
           context,
-          '2. Mô Tả Dịch Vụ',
-          'PhimHay là ứng dụng cung cấp thông tin về phim, bao gồm:\n\n'
-              '• Thông tin phim, diễn viên, đánh giá từ TMDB\n'
-              '• Xem trailer trên YouTube\n'
-              '• Lưu danh sách phim yêu thích cục bộ\n'
-              '• Tìm kiếm và khám phá phim\n\n'
-              'Ứng dụng không cung cấp dịch vụ phát trực tuyến (streaming) nội dung phim có bản quyền.',
+          '2. Nền Tảng Xem Phim',
+          'Khi bạn chọn "Tìm nơi xem", ứng dụng chỉ mở trang tìm kiếm của các nền tảng bên ngoài như Netflix, FPT Play, Galaxy Play, Max, ClipTV hoặc dịch vụ tương tự. Việc xem nội dung phụ thuộc vào tài khoản, khu vực, giấy phép và điều khoản của từng nền tảng.',
         ),
         _buildSection(
           context,
-          '3. Giới Hạn Sử Dụng',
-          'Bạn đồng ý không:\n\n'
-              '• Sử dụng ứng dụng cho mục đích thương mại\n'
-              '• Cố gắng sao chép, chỉnh sửa, dịch ngược hoặc trích xuất mã nguồn\n'
-              '• Sử dụng ứng dụng để vi phạm luật pháp hiện hành\n'
-              '• Cố gắng vượt qua các biện pháp bảo mật của ứng dụng',
+          '3. Dữ Liệu Bên Thứ Ba',
+          'Thông tin phim, hình ảnh, diễn viên và đánh giá được cung cấp bởi TMDB. Trailer được phát qua YouTube và thuộc quyền kiểm soát của Google/các chủ sở hữu nội dung.\n\n'
+              'PhimHay không tuyên bố được TMDB, YouTube hoặc các nền tảng streaming chứng nhận, tài trợ hay liên kết chính thức.',
         ),
         _buildSection(
           context,
-          '4. Nội Dung Bên Thứ Ba',
-          'Toàn bộ thông tin phim, hình ảnh và dữ liệu hiển thị trong ứng dụng được cung cấp bởi TMDB (The Movie Database). PhimHay không chịu trách nhiệm về tính chính xác hay đầy đủ của dữ liệu này.\n\n'
-              'Trailer phim được phát qua YouTube và thuộc quyền kiểm soát của Google/các chủ sở hữu nội dung.',
+          '4. Giới Hạn Sử Dụng',
+          'Bạn đồng ý không sử dụng ứng dụng để vi phạm pháp luật, xâm phạm quyền sở hữu trí tuệ, cố gắng trích xuất trái phép dữ liệu hoặc gây gián đoạn dịch vụ.',
         ),
         _buildSection(
           context,
           '5. Sở Hữu Trí Tuệ',
-          'Giao diện, thiết kế và code của ứng dụng PhimHay thuộc sở hữu của nhà phát triển. Dữ liệu phim thuộc TMDB. Hình ảnh và trailer thuộc các nhà sản xuất phim tương ứng.\n\n'
-              'Ứng dụng này sử dụng TMDB API nhưng không được TMDB chứng nhận hay tài trợ.',
+          'Giao diện, thiết kế và mã nguồn của PhimHay thuộc sở hữu của nhà phát triển. Dữ liệu phim thuộc TMDB. Hình ảnh, trailer, nhãn hiệu và nội dung phim thuộc các chủ sở hữu tương ứng.',
         ),
         _buildSection(
           context,
           '6. Giới Hạn Trách Nhiệm',
-          'PhimHay được cung cấp "nguyên trạng" mà không có bảo đảm nào. Chúng tôi không chịu trách nhiệm về:\n\n'
-              '• Sự gián đoạn hoặc lỗi dịch vụ\n'
-              '• Mất mát dữ liệu danh sách yêu thích\n'
-              '• Thông tin phim không chính xác từ TMDB\n'
-              '• Nội dung của các trang web bên thứ ba được liên kết',
+          'PhimHay được cung cấp theo hiện trạng. Chúng tôi không chịu trách nhiệm về sự thay đổi dữ liệu từ TMDB, lỗi hoặc gián đoạn của dịch vụ bên thứ ba, khả năng có sẵn của phim trên từng nền tảng, hoặc nội dung của trang web bên ngoài được mở từ ứng dụng.',
         ),
         _buildSection(
           context,
-          '7. Chấm Dứt',
-          'Chúng tôi có quyền chấm dứt hoặc tạm ngừng quyền truy cập vào ứng dụng bất kỳ lúc nào nếu bạn vi phạm các Điều khoản này.',
-        ),
-        _buildSection(
-          context,
-          '8. Thay Đổi Điều Khoản',
-          'Chúng tôi có thể cập nhật Điều khoản này theo thời gian. Việc tiếp tục sử dụng ứng dụng sau khi có thay đổi đồng nghĩa với việc bạn chấp nhận điều khoản mới.',
-        ),
-        _buildSection(
-          context,
-          '9. Liên Hệ',
-          'Mọi câu hỏi về Điều khoản Sử dụng, vui lòng liên hệ:\n\n'
-              'Email: support@phimhay.app',
+          '7. Liên Hệ',
+          'Mọi câu hỏi về Điều Khoản Sử Dụng, vui lòng liên hệ:\n\n'
+              'Email: ${AppConfig.supportEmail}\n'
+              'Terms URL: ${AppConfig.termsUrl}',
         ),
         const SizedBox(height: 32),
         _buildFooter(context),
@@ -128,8 +109,7 @@ class _TermsContent extends StatelessWidget {
 
   Widget _buildIntro(BuildContext context) {
     return Text(
-      'Vui lòng đọc kỹ các Điều khoản Sử dụng này trước khi sử dụng ứng dụng PhimHay. '
-      'Các điều khoản này quy định quyền và nghĩa vụ của bạn khi sử dụng dịch vụ của chúng tôi.',
+      'Vui lòng đọc kỹ các điều khoản này trước khi sử dụng PhimHay.',
       style: TextStyle(
         color: context.cl.textSecondary,
         fontSize: 14,
@@ -169,7 +149,7 @@ class _TermsContent extends StatelessWidget {
   Widget _buildFooter(BuildContext context) {
     return Center(
       child: Text(
-        'This app uses TMDB and the TMDB APIs but is not\nendorsed or certified by TMDB.',
+        AppConfig.tmdbAttribution,
         textAlign: TextAlign.center,
         style: TextStyle(color: context.cl.textMuted, fontSize: 11),
       ),

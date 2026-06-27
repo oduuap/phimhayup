@@ -125,11 +125,14 @@ class _HeroBannerState extends State<HeroBanner> {
         Row(
           children: [
             if (movie.year.isNotEmpty) ...[
-              const Text('',
-                  style: TextStyle(color: Colors.white70, fontSize: 13)),
-              Text(movie.year,
-                  style:
-                      const TextStyle(color: Colors.white70, fontSize: 13)),
+              const Text(
+                '',
+                style: TextStyle(color: Colors.white70, fontSize: 13),
+              ),
+              Text(
+                movie.year,
+                style: const TextStyle(color: Colors.white70, fontSize: 13),
+              ),
               const SizedBox(width: 10),
             ],
             const Icon(Icons.star_rounded, color: AppColors.gold, size: 14),
@@ -137,9 +140,10 @@ class _HeroBannerState extends State<HeroBanner> {
             Text(
               movie.voteAverage.toStringAsFixed(1),
               style: const TextStyle(
-                  color: AppColors.gold,
-                  fontSize: 13,
-                  fontWeight: FontWeight.bold),
+                color: AppColors.gold,
+                fontSize: 13,
+                fontWeight: FontWeight.bold,
+              ),
             ),
           ],
         ),
@@ -148,8 +152,8 @@ class _HeroBannerState extends State<HeroBanner> {
           children: [
             _buildButton(
               context: context,
-              icon: Icons.play_arrow_rounded,
-              label: 'Xem Phim',
+              icon: Icons.search_rounded,
+              label: 'Tìm nơi xem',
               isPrimary: true,
               onTap: () => context.push('/movie/${movie.id}'),
             ),
@@ -192,9 +196,10 @@ class _HeroBannerState extends State<HeroBanner> {
             Text(
               label,
               style: const TextStyle(
-                  color: Colors.white,
-                  fontSize: 13,
-                  fontWeight: FontWeight.w600),
+                color: Colors.white,
+                fontSize: 13,
+                fontWeight: FontWeight.w600,
+              ),
             ),
           ],
         ),

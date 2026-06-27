@@ -16,8 +16,7 @@ class TmdbException implements Exception {
 }
 
 http.Client _buildClient() {
-  final inner = HttpClient()
-    ..connectionTimeout = const Duration(seconds: 20);
+  final inner = HttpClient()..connectionTimeout = const Duration(seconds: 20);
   return IOClient(inner);
 }
 
@@ -26,19 +25,19 @@ class TmdbService {
 
   TmdbService({http.Client? client}) : _client = client ?? _buildClient();
 
-  static const Map<String, String> _headers = {
-    'Authorization': 'Bearer ${AppConfig.tmdbBearerToken}',
-    'accept': 'application/json',
-  };
+  static const Map<String, String> _headers = {'accept': 'application/json'};
 
   Uri _buildUri(String path, [Map<String, String>? extra]) {
     final params = {'language': AppConfig.language, ...?extra};
-    return Uri.parse('${AppConfig.tmdbBaseUrl}$path')
-        .replace(queryParameters: params);
+    return Uri.parse(
+      '${AppConfig.tmdbProxyUrl}$path',
+    ).replace(queryParameters: params);
   }
 
-  Future<Map<String, dynamic>> _get(String path,
-      [Map<String, String>? extra]) async {
+  Future<Map<String, dynamic>> _get(
+    String path, [
+    Map<String, String>? extra,
+  ]) async {
     final uri = _buildUri(path, extra);
     debugPrint('[TMDB] GET $path');
     try {
@@ -114,6 +113,29 @@ class TmdbService {
       'page': '$page',
       'sort_by': 'popularity.desc',
     });
+    return _parseMovieList(data);
+  }
+
+  Future<List<Movie>> discoverMovies({
+    int page = 1,
+    int? genreId,
+    String sortBy = 'popularity.desc',
+    int? year,
+    double? minVote,
+  }) async {
+    final params = <String, String>{
+      'page': '$page',
+      'sort_by': sortBy,
+      'include_adult': 'false',
+    };
+    if (genreId != null) params['with_genres'] = '$genreId';
+    if (year != null) params['primary_release_year'] = '$year';
+    if (minVote != null && minVote > 0) {
+      params['vote_average.gte'] = minVote.toStringAsFixed(1);
+      params['vote_count.gte'] = '50';
+    }
+
+    final data = await _get('/discover/movie', params);
     return _parseMovieList(data);
   }
 
